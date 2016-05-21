@@ -6,6 +6,7 @@ public class GameMachine : MonoBehaviour
 {
     public GameMachine Instance { get; private set; }
     public int Points { get; set; }
+    public int Damage { get; set; }
 
 
     Coroutines.Coroutine _Main;

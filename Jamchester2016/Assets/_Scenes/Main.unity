@@ -289,8 +289,9 @@ GameObject:
   - 114: {fileID: 1019058955}
   - 114: {fileID: 1019058954}
   - 114: {fileID: 1019058958}
+  - 114: {fileID: 1019058959}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Credits Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -385,6 +386,17 @@ MonoBehaviour:
   _ScrollText1: {fileID: 500747155}
   _ScrollText2: {fileID: 1840501019}
   _ScrollText3: {fileID: 2136966372}
+--- !u!114 &1019058959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1019058953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a88b47e0d0cc244945e1a3befdc6d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1196110562
 GameObject:
   m_ObjectHideFlags: 0

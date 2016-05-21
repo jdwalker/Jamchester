@@ -267,11 +267,11 @@ public class CreditsScroller : MonoBehaviour
                     switch (Random.Range(0, 2))
                     {
                         case 0:
-                            sb.AppendLine("Special Thanks to");
+                            sb.AppendLine(LargeSize + "Special Thanks to" + EndSize);
                             break;
 
                         case 1:
-                            sb.AppendLine("Extras");
+                            sb.AppendLine(LargeSize + "Extras" + EndSize);
                             break;
                     }
                     sb.AppendLine();
@@ -296,7 +296,7 @@ public class CreditsScroller : MonoBehaviour
 
                     // Production babies!
 
-                    sb.AppendLine("Production Babies!");
+                    sb.AppendLine(LargeSize + "Production Babies!" + EndSize);
                     sb.AppendLine();
                     
                     names2 = new KeyValuePair<string, string>[linesPerScreen - 2];
