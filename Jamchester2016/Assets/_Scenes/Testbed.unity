@@ -138,19 +138,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 5475466, guid: 1a6cd58c2debcc64eafa57a5a5240156, type: 2}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5498438, guid: 1a6cd58c2debcc64eafa57a5a5240156, type: 2}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5465302, guid: 1a6cd58c2debcc64eafa57a5a5240156, type: 2}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5421544, guid: 1a6cd58c2debcc64eafa57a5a5240156, type: 2}
       propertyPath: m_IsKinematic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5497808, guid: 1a6cd58c2debcc64eafa57a5a5240156, type: 2}
       propertyPath: m_IsKinematic
@@ -158,19 +158,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 5475466, guid: 1a6cd58c2debcc64eafa57a5a5240156, type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5498438, guid: 1a6cd58c2debcc64eafa57a5a5240156, type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5465302, guid: 1a6cd58c2debcc64eafa57a5a5240156, type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5421544, guid: 1a6cd58c2debcc64eafa57a5a5240156, type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5497808, guid: 1a6cd58c2debcc64eafa57a5a5240156, type: 2}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1a6cd58c2debcc64eafa57a5a5240156, type: 2}

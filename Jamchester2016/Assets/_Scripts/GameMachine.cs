@@ -4,7 +4,7 @@ using Coroutines;
 
 public class GameMachine : MonoBehaviour
 {
-    public GameMachine Instance { get; private set; }
+    public static GameMachine Instance { get; private set; }
     public int Points { get; set; }
     public int Damage { get; set; }
 
