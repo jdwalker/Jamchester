@@ -43,7 +43,12 @@ public class JointDefs : MonoBehaviour
         var gm = GameMachine.Instance;
 
         gm.Damage += cost;
-        gm.Points += _multi != null ? (int)(_multi.Amount * points) : points;
+        var pts = _multi != null ? (int)(_multi.Amount * points) : points;
+        gm.Points += pts;
+
+        var numFloater = NumberFloater.Get();
+        numFloater.SetText(pts);
+        numFloater.transform.position = transform.position;
 
         var newMulti = _multi != null ? _multi.Amount + 0.5f : 1.5f;
         transform.parent.GetComponentsInChildren<Rigidbody>().Select(rb =>
