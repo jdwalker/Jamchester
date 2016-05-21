@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using Coroutines;
 using Random = UnityEngine.Random;
 
@@ -127,6 +128,7 @@ public class CreditsScroller : MonoBehaviour
 
             yield return ControlFlow.Call(Wait(timePerScreen));
 
+            // populate normal credits
             PopulateCredits(texts[nextTextIdx], true);
 
             if (first)
@@ -166,7 +168,7 @@ public class CreditsScroller : MonoBehaviour
 
     private void PopulateCredits(Text text, bool startingText = false)
     {
-        int linesPerScreen = 20;
+        int linesPerScreen = 15;
         var sb = new StringBuilder();
 
         if (startingText)
@@ -186,6 +188,22 @@ public class CreditsScroller : MonoBehaviour
             sb.AppendLine("Art Direction by");
             sb.AppendLine(BigNameSize + "Rachael Jones" + EndSize);
             sb.AppendLine();
+        }
+        else
+        {
+            switch (Random.Range(0, 3))
+            {
+                case 0:
+                    sb.AppendLine(BigNameSize + JobTitleGen.GetJobTitle() + EndSize);
+                    sb.AppendLine();
+
+                    var names2 = new List<KeyValuePair<string, string>>();
+                    for (int i = 0; i < linesPerScreen; i++)
+                    {
+
+                    }
+                    break;
+            }
         }
 
         text.text = sb.ToString();
