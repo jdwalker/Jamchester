@@ -14,7 +14,7 @@ public static class NameGen
     //private static readonly Random _rand = new Random();
 
 
-    public string GetName()
+    public static string GetName()
     {
         var firstI = Random.Range(0, FirstNames.Length);
         var lastI = Random.Range(0, LastNames.Length);
