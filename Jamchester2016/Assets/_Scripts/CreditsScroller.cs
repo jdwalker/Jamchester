@@ -105,43 +105,44 @@ public class CreditsScroller : MonoBehaviour
         var timePerScreen = 10f;
 
         PopulateCredits(_ScrollText1, true);
+        PopulateCredits(_ScrollText2);
+        PopulateCredits(_ScrollText3);
 
         var startY = _StartingText.rectTransform.localPosition.y;
         LeanTween.moveLocalY(_StartingText.gameObject, startY + 100f, timePerScreen);
 
 
-        var texts = new[] { _ScrollText1, _ScrollText2, _ScrollText3 };
-        var nextTextIdx = 1;
+        var texts = new List<Text>() { _ScrollText1, _ScrollText2, _ScrollText3 };
 
-        var first = true;
+
+        for (int j = 0; j < 2; j++)
+        {
+            for (int i = 0; i < texts.Count; i++)
+            {
+                startY = texts[i].rectTransform.localPosition.y;
+                LeanTween.moveLocalY(texts[i].gameObject, startY + 100f, timePerScreen);
+            }
+
+            yield return ControlFlow.Call(Wait(timePerScreen));
+        }
 
         while (true)
         {
-            startY = _ScrollText1.rectTransform.localPosition.y;
-            LeanTween.moveLocalY(_ScrollText1.gameObject, startY + 100f, timePerScreen);
-
-            startY = _ScrollText2.rectTransform.localPosition.y;
-            LeanTween.moveLocalY(_ScrollText2.gameObject, startY + 100f, timePerScreen);
-
-            startY = _ScrollText3.rectTransform.localPosition.y;
-            LeanTween.moveLocalY(_ScrollText3.gameObject, startY + 100f, timePerScreen);
+            for (int i = 0; i < texts.Count; i++)
+            {
+                startY = texts[i].rectTransform.localPosition.y;
+                LeanTween.moveLocalY(texts[i].gameObject, startY + 100f, timePerScreen);
+            }
 
             yield return ControlFlow.Call(Wait(timePerScreen));
 
-            // populate normal credits
-            PopulateCredits(texts[nextTextIdx], true);
 
-            if (first)
-                first = false;
-            else
-            {
-                var prevTextIdx = (nextTextIdx - 1);
-                if (prevTextIdx == -1)
-                    prevTextIdx = texts.Length - 1;
+            var moveToEnd = texts[0];
+            texts.RemoveAt(0);
+            texts.Add(moveToEnd);
 
-                nextTextIdx = (nextTextIdx + 1) % texts.Length;
-                texts[prevTextIdx].rectTransform.localPosition += new Vector3(0, -300f, 0);
-            }
+            moveToEnd.rectTransform.localPosition += new Vector3(0, -300f, 0);
+            PopulateCredits(moveToEnd);
         }
     }
 
@@ -194,14 +195,30 @@ public class CreditsScroller : MonoBehaviour
             switch (Random.Range(0, 3))
             {
                 case 0:
-                    sb.AppendLine(BigNameSize + JobTitleGen.GetJobTitle() + EndSize);
+                case 1:
+                case 2:
+                    //   Job Title
+                    // Name1   Name2
+
+
+                    sb.AppendLine(BigNameSize + JobTitleGen.GetJobTitlePlural() + EndSize);
                     sb.AppendLine();
 
-                    var names2 = new List<KeyValuePair<string, string>>();
-                    for (int i = 0; i < linesPerScreen; i++)
+                    var names2 = new KeyValuePair<string, string>[linesPerScreen - 2];
+                    for (int i = 0; i < names2.Length; i++)
                     {
-
+                        names2[i] = new KeyValuePair<string, string>(NameGen.GetName(), NameGen.GetName());
                     }
+
+                    var maxNameWidth = names2.SelectMany(n => new[] { n.Key, n.Value }).OrderByDescending(n => n.Length).First().Length;
+
+                    var format = string.Format("{{0,-{0}}}   {{1,{0}}}", maxNameWidth);
+
+                    for (int i = 0; i < names2.Length; i++)
+                    {
+                        sb.AppendLine(string.Format(format, names2[i].Key, names2[i].Value));
+                    }
+
                     break;
             }
         }
