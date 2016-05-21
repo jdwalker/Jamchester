@@ -169,7 +169,8 @@ public class CreditsScroller : MonoBehaviour
 
     private void PopulateCredits(Text text, bool startingText = false)
     {
-        int linesPerScreen = 15;
+        const int linesPerScreen = 15;
+
         var sb = new StringBuilder();
 
         if (startingText)
@@ -192,7 +193,7 @@ public class CreditsScroller : MonoBehaviour
         }
         else
         {
-            switch (Random.Range(0, 3))
+            switch (Random.Range(0, 10))
             {
                 case 0:
                 case 1:
@@ -218,6 +219,104 @@ public class CreditsScroller : MonoBehaviour
                     {
                         sb.AppendLine(string.Format(format, names2[i].Key, names2[i].Value));
                     }
+
+                    break;
+
+
+                case 3:
+                case 4:
+                case 5:
+                    //   Job Title
+                    // Name1   Name2
+                    //   Job Title
+                    // Name1   Name2
+
+                    const int linesPerBlock = 4;
+
+                    for (int j = 0; j < 2; j++)
+                    {
+                        sb.AppendLine(BigNameSize + JobTitleGen.GetJobTitlePlural() + EndSize);
+                        sb.AppendLine();
+
+                        var names3 = new KeyValuePair<string, string>[linesPerBlock];
+                        for (int i = 0; i < linesPerBlock; i++)
+                        {
+                            names3[i] = new KeyValuePair<string, string>(NameGen.GetName(), NameGen.GetName());
+                        }
+
+                        maxNameWidth = names3.SelectMany(n => new[] { n.Key, n.Value }).OrderByDescending(n => n.Length).First().Length;
+                        format = string.Format("{{0,-{0}}}   {{1,{0}}}", maxNameWidth);
+                        
+                        for (int i = 0; i < names3.Length; i++)
+                        {
+                            sb.AppendLine(string.Format(format, names3[i].Key, names3[i].Value));
+                        }
+
+                        sb.AppendLine();
+                    }
+
+
+
+                    break;
+
+
+                case 6:
+                case 7:
+                case 8:
+
+                    switch (Random.Range(0, 2))
+                    {
+                        case 0:
+                            sb.AppendLine("Special Thanks to");
+                            break;
+
+                        case 1:
+                            sb.AppendLine("Extras");
+                            break;
+                    }
+                    sb.AppendLine();
+                    
+                    names2 = new KeyValuePair<string, string>[linesPerScreen - 2];
+                    for (int i = 0; i < names2.Length; i++)
+                    {
+                        names2[i] = new KeyValuePair<string, string>(JobTitleGen.GetJobTitle(), NameGen.GetName());
+                    }
+
+                    maxNameWidth = names2.SelectMany(n => new[] { n.Key, n.Value }).OrderByDescending(n => n.Length).First().Length;
+                    format = string.Format("<b>{{0,-{0}}}</b>   {{1,{0}}}", maxNameWidth);
+
+                    for (int i = 0; i < names2.Length; i++)
+                    {
+                        sb.AppendLine(string.Format(format, names2[i].Key, names2[i].Value));
+                    }
+
+                    break;
+
+                case 9:
+
+                    // Production babies!
+
+                    sb.AppendLine("Production Babies!");
+                    sb.AppendLine();
+                    
+                    names2 = new KeyValuePair<string, string>[linesPerScreen - 2];
+                    for (int i = 0; i < names2.Length; i++)
+                    {
+                        names2[i] = new KeyValuePair<string, string>(NameGen.GetName(), NameGen.GetName());
+                    }
+
+                    maxNameWidth = names2.SelectMany(n => new[] { n.Key, n.Value }).OrderByDescending(n => n.Length).First().Length;
+                    format = string.Format("{{0,-{0}}}   {{1,{0}}}", maxNameWidth);
+
+                    for (int i = 0; i < names2.Length; i++)
+                    {
+                        sb.AppendLine(string.Format(format, names2[i].Key, names2[i].Value));
+                    }
+
+                    break;
+
+                case 10:
+
 
                     break;
             }

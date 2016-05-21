@@ -33,7 +33,7 @@ public static class JobTitleGen
 
         Suffixes = new[]
         {
-            "Producer", "Tester", "Grip", "Writer", "Technician", "Makeup", "Wardrobe", "Carpenter", "Coordinator", "Catering",
+            "Producer", "Tester", "Grip", "Writer", "Technician", "Makeup", "Wardrobe", "Carpenter", "Coordinator", "Caterer",
             "Usher", "Host", "Manager",
         };
     }
