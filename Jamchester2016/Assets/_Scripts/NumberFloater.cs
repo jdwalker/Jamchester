@@ -14,6 +14,8 @@ public class NumberFloater : MonoBehaviour
         LeanTween.moveLocalY(gameObject, transform.localPosition.y + 1, 0.4f).onComplete = () => GameMachine.Instance.CloseTween("NumberFloater", 14);
         GameMachine.Instance.OpenTween("NumberFloater", 16);
         LeanTween.delayedCall(0.4f, () => Pool()).onComplete = () => GameMachine.Instance.CloseTween("NumberFloater", 16);
+
+        _pool = new List<NumberFloater>();
     }
 
     public void SetText(int points)
@@ -24,7 +26,7 @@ public class NumberFloater : MonoBehaviour
     }
 
 
-    private static List<NumberFloater> _pool = new List<NumberFloater>();
+    private static List<NumberFloater> _pool;
     private static NumberFloater _prefab;
 
     private void Pool()

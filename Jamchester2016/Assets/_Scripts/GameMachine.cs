@@ -27,12 +27,12 @@ public class GameMachine : MonoBehaviour
     {
         var p = NumberPrefab.gameObject;
         NumberFloater.SetPrefab(NumberPrefab);
+        Instance = this;
     }
 
     // Use this for initialization
     void Start()
     {
-        Instance = this;
         //_Main = nekw Coroutines.Coroutine(Main());
     }
 
@@ -67,6 +67,8 @@ public class GameMachine : MonoBehaviour
 
     public void Reload()
     {
+        Time.timeScale = 1.0f;
+        Multiplier.Highest = 0;
         SceneManager.LoadScene("Main", LoadSceneMode.Single);
     }
 

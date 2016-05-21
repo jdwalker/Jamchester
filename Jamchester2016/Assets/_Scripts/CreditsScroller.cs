@@ -29,7 +29,9 @@ public class CreditsScroller : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("AWAAAAAKE@");
         Instance = this;
+        Time.timeScale = 1.0f;
     }
 
     // Use this for initialization
@@ -171,15 +173,18 @@ public class CreditsScroller : MonoBehaviour
     IEnumerable<Instruction> RunEndGameCredits()
     {
         _OverlayCanvas.gameObject.SetActive(true);
-        _OverlayCanvas.transform.GetChild(1).gameObject.SetActive(false);
         _StartingText.rectTransform.localPosition = new Vector3(_StartingText.rectTransform.localPosition.x, -100f, _StartingText.rectTransform.localPosition.z);
         _StartingText.rectTransform.LookAt(-Camera.main.transform.position);
         _StartingText.color = Color.white;
 
-        _OverlayCanvas.transform.GetChild(0).GetComponent<Image>().CrossFadeAlpha(1f, 5f, true);
+        //_OverlayCanvas.transform.GetChild(0).GetComponent<Image>().CrossFadeAlpha(1f, 5f, true);
+        LeanTween.color(_OverlayCanvas.transform.GetChild(0).transform as RectTransform, Color.black, 5f).setUseEstimatedTime(true);
         var text = _OverlayCanvas.transform.GetChild(1).GetComponent<Text>();
+        //text.gameObject.SetActive(true);
         text.color = new Color(1f, 1f, 1f, 0f);
-        text.CrossFadeAlpha(1f, 5f, true);
+        //text.CrossFadeAlpha(1f, 5f, true);
+        //LeanTween.color(text.rectTransform, new Color(1f, 1f, 1f, 1f), 5f).setUseEstimatedTime(true);
+        LeanTween.textAlpha(text.rectTransform, 1f, 5f).setUseEstimatedTime(true);
         text.text = LargeSize + "Your score!\n" + EndSize + GameMachine.Instance.Points + "\n\nProperty Damage: " + GameMachine.Instance.Damage.ToString("C") + "\n\nHighest Multiplier Gained: " + Multiplier.Highest;
         //LeanTween.value(gameObject,
         //    c => {
