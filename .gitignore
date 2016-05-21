@@ -4,3 +4,4 @@ Jamchester2016/Library/
 *.csproj
 *.pdb
 *.exe
+*.suo
