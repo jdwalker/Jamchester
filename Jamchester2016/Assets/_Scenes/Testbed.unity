@@ -442,6 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NumberPrefab: {fileID: 11422554, guid: 6658ea4ee3ed46441ad46ea9e73afb57, type: 2}
+  GameTime: 10
 --- !u!1001 &2071535814
 Prefab:
   m_ObjectHideFlags: 0
@@ -467,7 +468,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 477120, guid: 6658ea4ee3ed46441ad46ea9e73afb57, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.64235556
       objectReference: {fileID: 0}
     - target: {fileID: 477120, guid: 6658ea4ee3ed46441ad46ea9e73afb57, type: 2}
       propertyPath: m_LocalRotation.z
@@ -475,7 +476,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 477120, guid: 6658ea4ee3ed46441ad46ea9e73afb57, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7664067
       objectReference: {fileID: 0}
     - target: {fileID: 477120, guid: 6658ea4ee3ed46441ad46ea9e73afb57, type: 2}
       propertyPath: m_RootOrder

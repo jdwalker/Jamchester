@@ -7,6 +7,18 @@ using System.Text;
 [RequireComponent(typeof(Rigidbody))]
 public class Multiplier : MonoBehaviour
 {
-    public float Amount { get; set; }
+    public static float Highest { get; set; }
+
+    private float _amount;
+    public float Amount
+    {
+        get { return _amount; }
+        set
+        {
+            _amount = value;
+            if (value > Highest)
+                Highest = value;
+        }
+    }
 }
 

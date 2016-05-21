@@ -9,21 +9,33 @@ using Random = UnityEngine.Random;
 
 public class CreditsScroller : MonoBehaviour
 {
+    public static CreditsScroller Instance { get; set; }
+
     [SerializeField]
     Text _StartingText;
 
     [SerializeField]
     Text _ScrollText1, _ScrollText2, _ScrollText3;
 
+    [SerializeField]
+    Canvas _OverlayCanvas;
+
 
     Coroutines.Coroutine _Main;
     float shakeTimer = 0f;
     float[] timesForShake = new float[] { 1, 2, 1, 3, 2, 4, 1, 1, 3 };
     int shakeCount = 0;
+    bool isEnding = false;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     // Use this for initialization
     void Start()
     {
+        _OverlayCanvas.gameObject.SetActive(false);
         _Main = new Coroutines.Coroutine(Main());
     }
 
@@ -37,7 +49,7 @@ public class CreditsScroller : MonoBehaviour
 
     void CreditsShake()
     {
-        shakeTimer += Time.deltaTime;
+        shakeTimer += Time.unscaledDeltaTime;
         if (shakeTimer > timesForShake[shakeCount])
         {
             shakeCount++;
@@ -49,12 +61,14 @@ public class CreditsScroller : MonoBehaviour
             var moveTo = (dir ? 1f : -1f) * 0.075f;
             var time = 0.035f;
 
-            LeanTween.moveLocalX(gameObject, moveTo, time);
+            GameMachine.Instance.OpenTween("CreditsScroller", 65);
+            LeanTween.moveLocalX(gameObject, moveTo, time).onComplete = () => GameMachine.Instance.CloseTween("CreditsScroller", 65);
             //.setEase(LeanTweenType.easeInOutBounce);
 
+            GameMachine.Instance.OpenTween("CreditsScroller", 69);
             LeanTween.moveLocalX(gameObject, 0, time)
                 //.setEase(LeanTweenType.easeInOutBounce)
-                .setDelay(time);
+                .setDelay(time).onComplete = () => GameMachine.Instance.CloseTween("CreditsScroller", 69);
 
             //LeanTween.moveLocalX(gameObject, 0, 0.1f)
             //    //.setEase(LeanTweenType.easeInOutBounce)
@@ -78,7 +92,10 @@ public class CreditsScroller : MonoBehaviour
 
         yield return ControlFlow.Call(Wait(4));
 
-        yield return ControlFlow.Call(ScrollCredits());
+        yield return ControlFlow.ExecuteWhile(() => !isEnding,
+            ScrollCredits());
+
+        yield return ControlFlow.Call(RunEndGameCredits());
     }
 
     IEnumerable<Instruction> Wait(float duration)
@@ -87,15 +104,15 @@ public class CreditsScroller : MonoBehaviour
 
         while (timer < duration)
         {
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
             yield return null;
         }
     }
 
     IEnumerable<Instruction> FadeIn(float duration)
     {
-        //_Text.CrossFadeAlpha(1f, duration, false);
-        LeanTween.textColor(_StartingText.rectTransform, Color.black, duration);
+        GameMachine.Instance.OpenTween("CreditsScroller", 115);
+        LeanTween.textColor(_StartingText.rectTransform, Color.black, duration).onComplete = () => GameMachine.Instance.CloseTween("CreditsScroller", 115);
 
         yield return ControlFlow.Call(Wait(duration));
     }
@@ -109,7 +126,8 @@ public class CreditsScroller : MonoBehaviour
         PopulateCredits(_ScrollText3);
 
         var startY = _StartingText.rectTransform.localPosition.y;
-        LeanTween.moveLocalY(_StartingText.gameObject, startY + 100f, timePerScreen);
+        GameMachine.Instance.OpenTween("CreditsScroller", 130);
+        LeanTween.moveLocalY(_StartingText.gameObject, startY + 100f, timePerScreen).onComplete = () => GameMachine.Instance.CloseTween("CreditsScroller", 130);
 
 
         var texts = new List<Text>() { _ScrollText1, _ScrollText2, _ScrollText3 };
@@ -120,10 +138,13 @@ public class CreditsScroller : MonoBehaviour
             for (int i = 0; i < texts.Count; i++)
             {
                 startY = texts[i].rectTransform.localPosition.y;
-                LeanTween.moveLocalY(texts[i].gameObject, startY + 100f, timePerScreen);
+                GameMachine.Instance.OpenTween("CreditsScroller", 142);
+                LeanTween.moveLocalY(texts[i].gameObject, startY + 100f, timePerScreen).onComplete = () => GameMachine.Instance.CloseTween("CreditsScroller", 142);
             }
 
             yield return ControlFlow.Call(Wait(timePerScreen));
+
+            GameMachine.Instance.StartGame();
         }
 
         while (true)
@@ -131,7 +152,8 @@ public class CreditsScroller : MonoBehaviour
             for (int i = 0; i < texts.Count; i++)
             {
                 startY = texts[i].rectTransform.localPosition.y;
-                LeanTween.moveLocalY(texts[i].gameObject, startY + 100f, timePerScreen);
+                GameMachine.Instance.OpenTween("CreditsScroller", 156);
+                LeanTween.moveLocalY(texts[i].gameObject, startY + 100f, timePerScreen).onComplete = () => GameMachine.Instance.CloseTween("CreditsScroller", 156);
             }
 
             yield return ControlFlow.Call(Wait(timePerScreen));
@@ -146,7 +168,42 @@ public class CreditsScroller : MonoBehaviour
         }
     }
 
+    IEnumerable<Instruction> RunEndGameCredits()
+    {
+        _OverlayCanvas.gameObject.SetActive(true);
+        _OverlayCanvas.transform.GetChild(1).gameObject.SetActive(false);
+        _StartingText.rectTransform.localPosition = new Vector3(_StartingText.rectTransform.localPosition.x, -100f, _StartingText.rectTransform.localPosition.z);
+        _StartingText.rectTransform.LookAt(-Camera.main.transform.position);
+        _StartingText.color = Color.white;
 
+        _OverlayCanvas.transform.GetChild(0).GetComponent<Image>().CrossFadeAlpha(1f, 5f, true);
+        var text = _OverlayCanvas.transform.GetChild(1).GetComponent<Text>();
+        text.color = new Color(1f, 1f, 1f, 0f);
+        text.CrossFadeAlpha(1f, 5f, true);
+        text.text = LargeSize + "Your score!\n" + EndSize + GameMachine.Instance.Points + "\n\nProperty Damage: " + GameMachine.Instance.Damage.ToString("C") + "\n\nHighest Multiplier Gained: " + Multiplier.Highest;
+        //LeanTween.value(gameObject,
+        //    c => {
+        //        _OverlayCanvas.transform.GetChild(0).GetComponent<Image>().CrossFadeAlpha(1f, 5f, true);
+        //    },
+        //    new Color(0f, 0f, 0f, 0f), new Color(0f, 0f, 0f, 1f), 5f);
+        GameMachine.Instance.OpenTween("CreditsScroller", 190);
+        LeanTween.moveLocalY(_StartingText.gameObject, 0f, 10f).onComplete = () => GameMachine.Instance.CloseTween("CreditsScroller", 190);
+
+        yield return ControlFlow.Call(Wait(10f));
+
+        _OverlayCanvas.transform.GetChild(2).gameObject.SetActive(true);
+    }
+
+
+
+    #region Public API
+
+    public void EndGame()
+    {
+        isEnding = true;
+    }
+
+    #endregion
 
 
 

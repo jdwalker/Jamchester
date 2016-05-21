@@ -9,8 +9,11 @@ public class NumberFloater : MonoBehaviour
 {
     void Start()
     {
-        LeanTween.moveLocalY(gameObject, transform.localPosition.y + 1, 0.4f);
-        LeanTween.delayedCall(0.4f, () => Pool());
+        transform.LookAt(-Camera.main.transform.position);
+        GameMachine.Instance.OpenTween("NumberFloater", 14);
+        LeanTween.moveLocalY(gameObject, transform.localPosition.y + 1, 0.4f).onComplete = () => GameMachine.Instance.CloseTween("NumberFloater", 14);
+        GameMachine.Instance.OpenTween("NumberFloater", 16);
+        LeanTween.delayedCall(0.4f, () => Pool()).onComplete = () => GameMachine.Instance.CloseTween("NumberFloater", 16);
     }
 
     public void SetText(int points)
