@@ -15,6 +15,9 @@ public class GameMachine : MonoBehaviour
     [SerializeField]
     float GameTime;
 
+    [SerializeField]
+    AudioClip[] _announcerClips;
+
     public static GameMachine Instance
 	{
 		get
@@ -117,6 +120,8 @@ public class GameMachine : MonoBehaviour
         _vrPlayer.SetActive(true);
 
         CreditsScroller.Instance.DisableCreditOverlay();
+
+        LeanAudio.playAudio(_announcerClips[UnityEngine.Random.Range(0, _announcerClips.Length)], transform.position, 1f, 1f);
 
         yield return null;
         Camera.main.gameObject.SetActive(false);
