@@ -68,6 +68,7 @@ GameObject:
   - 64: {fileID: 6463586}
   - 54: {fileID: 5452102}
   - 138: {fileID: 13895950}
+  - 114: {fileID: 11455908}
   m_Layer: 0
   m_Name: Chair_Front
   m_TagString: Untagged
@@ -82,8 +83,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 144004}
   m_LocalRotation: {x: 0, y: -0.63428235, z: 0, w: 0.77310157}
-  m_LocalPosition: {x: -129.74, y: 53.629, z: 670.4}
-  m_LocalScale: {x: 24.124006, y: 24.124014, z: 24.124014}
+  m_LocalPosition: {x: -8.411, y: 0, z: 32.543}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 462224}
   - {fileID: 449336}
@@ -188,7 +189,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3b58ecbf3c2a53b49a99ef83d9b97063, type: 2}
+  - {fileID: 2100000, guid: b406edcdca2742340bc13b52bad8435c, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -319,7 +320,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points: 100
   cost: 100
-  audioClip: {fileID: 0}
+  audioClips:
+  - {fileID: 8300000, guid: c7c3461298380834d9ed60e834681732, type: 3}
+  - {fileID: 8300000, guid: 0e9b43b9677907a45aeed2a38b8876b6, type: 3}
+  - {fileID: 8300000, guid: 51b707aa22f61544fba3aba578da86c9, type: 3}
+  - {fileID: 8300000, guid: 3adf3c38418070548bc1a24a92c80f61, type: 3}
+  - {fileID: 8300000, guid: 81f4030afc46c4c4fb674dec8740a0fe, type: 3}
+  fakeMass: 0.5
+--- !u!114 &11455908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 190570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce6750a327b33b64a9f0a956f38e6200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: 20
+  cost: 20
+  audioClips:
+  - {fileID: 8300000, guid: d63616d7a295c764a974c890d8e1e04d, type: 3}
+  - {fileID: 8300000, guid: 6d477a9a3a92a6d40bdd04a65232e501, type: 3}
+  - {fileID: 8300000, guid: 367ff80d575b4664e99902149846bb73, type: 3}
   fakeMass: 0.5
 --- !u!138 &13815866
 FixedJoint:

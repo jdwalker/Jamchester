@@ -13,7 +13,7 @@ public class JointDefs : MonoBehaviour
     int cost = 100;
 
     [SerializeField]
-    AudioClip audioClip;
+    AudioClip[] audioClips;
 
     Rigidbody _rb;
     FixedJoint _joint;
@@ -43,6 +43,13 @@ public class JointDefs : MonoBehaviour
     void Start()
     {
         _rb.Sleep();
+    }
+
+    void Update()
+    {
+
+        if (audioClips.Length > 0 && Input.GetKeyDown(KeyCode.F1))
+            LeanAudio.playAudio(audioClips[UnityEngine.Random.Range(0, audioClips.Length)], transform.position, 0.5f, 1f);
     }
 
     void OnCollisionEnter(Collision c)
