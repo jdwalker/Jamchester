@@ -11,6 +11,9 @@ public class JointDefs : MonoBehaviour
     [SerializeField]
     int cost = 100;
 
+    [SerializeField]
+    AudioClip audioClip;
+
     Rigidbody _rb;
     FixedJoint _joint;
     Multiplier _multi;
