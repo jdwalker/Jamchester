@@ -7,24 +7,28 @@ using System.Linq;
 public class CameraStartup : MonoBehaviour {
 
 	// Use this for initialization
-	public Camera headCamera;
+	public Camera headVrCamera;
+	public Camera headMouseCamera;
 	public Camera sceneCamera;
-	Boolean headState;
 
-	
+	Boolean headState;
 
 	void Awake()
 	{
 		Boolean VRDeviceIsPresent = SteamVR.active;
 
-		headState = MonitorCameraOnHead(!VRDeviceIsPresent);
 
-		if(!VRDeviceIsPresent)
+		foreach(var go in GameObject.FindGameObjectsWithTag("VrOnly"))
 		{
-			var head = GameObject.Find("Head");
-			if(head != null)
-				head.transform.Translate(new Vector3(0, 0.8F, 0), Space.Self);
+			go.SetActive(VRDeviceIsPresent);
 		}
+
+		foreach(var go in GameObject.FindGameObjectsWithTag("MouseOnly"))
+		{
+			go.SetActive(!VRDeviceIsPresent);
+		}
+
+		headState = MonitorCameraOnHead(head: true);
 
 	}
 
@@ -43,8 +47,11 @@ public class CameraStartup : MonoBehaviour {
 		if(sceneCamera != null)
 			sceneCamera.enabled = !head;
 
-		if(headCamera != null)
-			headCamera.enabled = head;
+		if(headMouseCamera != null)
+			headMouseCamera.enabled = head;
+
+		if(headVrCamera != null)
+			headVrCamera.enabled = head;
 
 		return head;
 	}

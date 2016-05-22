@@ -53,12 +53,6 @@ public class FPSCharacterController : MonoBehaviour
     private bool playerControl = false;
     private int jumpTimer;
 
-	void Awake()
-	{
-		this.enabled = !SteamVR.active;
-		;
-	}
-
 	void Start()
     {
         controller = GetComponent<CharacterController>();

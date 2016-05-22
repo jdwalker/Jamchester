@@ -30,11 +30,6 @@ public class FPSMouseLook : MonoBehaviour
 
     Quaternion originalRotation;
 
-	void Awake()
-	{
-		this.enabled = !SteamVR.active;
-	}
-
     void Update()
     {
         if (axes == RotationAxes.MouseXAndY)
