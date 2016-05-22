@@ -11,12 +11,12 @@ public class CameraStartup : MonoBehaviour {
 	public Camera headMouseCamera;
 	public Camera sceneCamera;
 
+	public Boolean VRDeviceIsPresent;
+
 	Boolean headState;
 
 	void Awake()
 	{
-		Boolean VRDeviceIsPresent = SteamVR.active;
-
 
 		foreach(var go in GameObject.FindGameObjectsWithTag("VrOnly"))
 		{
