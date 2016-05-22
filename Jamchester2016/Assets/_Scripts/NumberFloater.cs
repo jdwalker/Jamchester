@@ -7,6 +7,11 @@ using Coroutines;
 
 public class NumberFloater : MonoBehaviour
 {
+    void Awake()
+    {
+        _pool = new List<NumberFloater>();
+    }
+
     void Start()
     {
         transform.LookAt(-Camera.main.transform.position);
@@ -15,7 +20,6 @@ public class NumberFloater : MonoBehaviour
         GameMachine.Instance.OpenTween("NumberFloater", 16);
         LeanTween.delayedCall(0.4f, () => Pool()).onComplete = () => GameMachine.Instance.CloseTween("NumberFloater", 16);
 
-        _pool = new List<NumberFloater>();
     }
 
     public void SetText(int points)

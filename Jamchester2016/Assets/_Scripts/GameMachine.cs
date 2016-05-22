@@ -25,9 +25,16 @@ public class GameMachine : MonoBehaviour
 
     void Awake()
     {
+        if (SceneManager.sceneCount == 1)
+            SceneManager.LoadScene("Testbed_vrtest", LoadSceneMode.Additive);
+
+        //if (Camera.main == null)
+        //    Camera.main = FindObjectOfType<CharacterController>().transform.GetChild(0).GetComponent<Camera>();
+
         var p = NumberPrefab.gameObject;
         NumberFloater.SetPrefab(NumberPrefab);
         Instance = this;
+
     }
 
     // Use this for initialization
