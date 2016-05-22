@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Coroutines;
+using Assets._Scripts.Util;
 
 public class NumberFloater : MonoBehaviour
 {
-    void Awake()
-    {
-        _pool = new List<NumberFloater>();
-    }
 
     void Start()
     {
@@ -30,8 +27,7 @@ public class NumberFloater : MonoBehaviour
     }
 
 
-    private static List<NumberFloater> _pool;
-    private static NumberFloater _prefab;
+    private static List<NumberFloater> _pool = new List<NumberFloater>();
 
     private void Pool()
     {
@@ -49,12 +45,8 @@ public class NumberFloater : MonoBehaviour
             return item;
         }
         else
-            return GameObject.Instantiate(_prefab);
-    }
-
-    public static void SetPrefab(NumberFloater prefab)
-    {
-        _prefab = prefab;
+            return GameObject.Instantiate(FindObjectOfType<NumberFactoryPrefab>().Prefab)
+				.GetComponentInChildren<NumberFloater>();
     }
 }
 

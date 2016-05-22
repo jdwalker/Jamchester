@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Linq;
+using System;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(FixedJoint))]
@@ -18,10 +19,25 @@ public class JointDefs : MonoBehaviour
     FixedJoint _joint;
     Multiplier _multi;
 
+	public float fakeMass = 0.5F; 
+
+	float realMass;
+	float connectedBodyRealMass;
+
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _joint = GetComponent<FixedJoint>();
+
+		if(_joint.connectedBody != null)
+		{
+			connectedBodyRealMass = _joint.connectedBody.mass;
+			_joint.connectedBody.mass = fakeMass;
+		}
+
+
+		realMass = _rb.mass;
+		_rb.mass =   fakeMass;
     }
 
     void Start()
@@ -43,29 +59,46 @@ public class JointDefs : MonoBehaviour
         //_joint.connectedBody.useGravity = true;
         Debug.Log("Joint between " + name + " and " + _joint.connectedBody.name + " broke with power " + power);
 
-        var gm = GameMachine.Instance;
+		var pts = _multi != null ? (int) (_multi.Amount * points) : points;
 
-        gm.Damage += cost;
-        var pts = _multi != null ? (int)(_multi.Amount * points) : points;
-        gm.Points += pts;
+		var gm = GameMachine.Instance;
+		if(gm != null)
+		{
 
-        var numFloater = NumberFloater.Get();
-        numFloater.SetText(pts);
+			gm.Damage += cost;
+			gm.Points += pts;
+		}
+
+		var numFloater = NumberFloater.Get();
         numFloater.transform.position = transform.position;
+		numFloater.SetText(pts);
 
-        var newMulti = _multi != null ? _multi.Amount + 0.5f : 1.5f;
-        transform.parent.GetComponentsInChildren<Rigidbody>().Select(rb =>
-        {
-            rb.useGravity = true;
+		if(_joint.connectedBody != null)
+		{
+			_joint.connectedBody.mass = connectedBodyRealMass;
+		}
 
-            var m = rb.gameObject.GetComponent<Multiplier>();
 
-            if (m == null)
-                m = rb.gameObject.AddComponent<Multiplier>();
+		realMass = _rb.mass;
+		_rb.mass = fakeMass;
 
-            m.Amount = newMulti;
-            return true;
-        }).ToArray();
+
+		_rb.mass = realMass;
+
+		var newMulti = _multi != null ? _multi.Amount + 0.5f : 1.5f;
+		foreach(var rb in transform.parent.GetComponentsInChildren<Rigidbody>())
+		{
+			rb.constraints = RigidbodyConstraints.None;
+
+			rb.useGravity = true;
+
+			var m = rb.gameObject.GetComponent<Multiplier>();
+
+			if(m == null)
+				m = rb.gameObject.AddComponent<Multiplier>();
+
+			m.Amount = newMulti;
+		};
     }
 }
 
