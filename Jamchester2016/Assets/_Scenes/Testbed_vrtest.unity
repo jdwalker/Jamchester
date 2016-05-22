@@ -507,7 +507,7 @@ Prefab:
     - target: {fileID: 3398500, guid: 0e384f0fab167c6488051102a17197de, type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1629069675}
+      objectReference: {fileID: 1312875676}
     - target: {fileID: 185390, guid: 0e384f0fab167c6488051102a17197de, type: 2}
       propertyPath: m_IsActive
       value: 1
@@ -642,15 +642,14 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11409542, guid: 15a5f7692fb29a949a173da0acf0fffd, type: 2}
+      propertyPath: VRDeviceIsPresent
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 15a5f7692fb29a949a173da0acf0fffd, type: 2}
   m_IsPrefabParent: 0
---- !u!20 &1414528377 stripped
-Camera:
-  m_PrefabParentObject: {fileID: 2035574, guid: e26ea71bc2cab894eaa6d668b71310da,
-    type: 2}
-  m_PrefabInternal: {fileID: 1815682630}
---- !u!43 &1629069675
+--- !u!43 &1312875676
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -778,6 +777,11 @@ Mesh:
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
   m_MeshOptimized: 0
+--- !u!20 &1414528377 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 2035574, guid: e26ea71bc2cab894eaa6d668b71310da,
+    type: 2}
+  m_PrefabInternal: {fileID: 1815682630}
 --- !u!1 &1762175622
 GameObject:
   m_ObjectHideFlags: 0
