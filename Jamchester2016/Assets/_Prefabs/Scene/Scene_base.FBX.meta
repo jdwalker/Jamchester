@@ -1,20 +1,70 @@
 fileFormatVersion: 2
-guid: 0af9af035a6e2fc40900fe155c246198
-timeCreated: 1463907321
+guid: 4c66c1d2c5706dc448d88e4e45fe54c7
+timeCreated: 1463910777
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Post_038
-    6400000: //RootNode
+    100000: Box001
+    100002: Box012
+    100004: Cylinder005
+    100006: Cylinder006
+    100008: Floor
+    100010: //RootNode
+    100012: Seating_002
+    100014: Seating_003
+    100016: Seating_004
+    100018: Walls_front
+    400000: Box001
+    400002: Box012
+    400004: Cylinder005
+    400006: Cylinder006
+    400008: Floor
+    400010: //RootNode
+    400012: Seating_002
+    400014: Seating_003
+    400016: Seating_004
+    400018: Walls_front
+    2300000: Box001
+    2300002: Box012
+    2300004: Cylinder005
+    2300006: Cylinder006
+    2300008: Floor
+    2300010: Seating_002
+    2300012: Seating_003
+    2300014: Seating_004
+    2300016: Walls_front
+    3300000: Box001
+    3300002: Box012
+    3300004: Cylinder005
+    3300006: Cylinder006
+    3300008: Floor
+    3300010: Seating_002
+    3300012: Seating_003
+    3300014: Seating_004
+    3300016: Walls_front
+    4300000: Box001
+    4300002: Walls_front
+    4300004: Seating_002
+    4300006: Floor
+    4300008: Cylinder005
+    4300010: Box012
+    4300012: Cylinder006
+    4300014: Seating_003
+    4300016: Seating_004
+    6400000: Box001
+    6400002: Box012
+    6400004: Cylinder005
+    6400006: Cylinder006
+    6400008: Floor
+    6400010: Seating_002
+    6400012: Seating_003
+    6400014: Seating_004
+    6400016: Walls_front
   materials:
     importMaterials: 1
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

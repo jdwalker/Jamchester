@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ae9765dea9a63b942818c9afe9796467
-timeCreated: 1463907323
+timeCreated: 1463910777
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Chair_Legs_062
+    4300000: Box013
     6400000: //RootNode
   materials:
     importMaterials: 1
