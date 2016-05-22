@@ -9,13 +9,13 @@ public class CameraStartup : MonoBehaviour {
 	// Use this for initialization
 	public Camera headVrCamera;
 	public Camera headMouseCamera;
-	public Camera sceneCamera;
+    public Camera sceneCamera;
 
 	public Boolean VRDeviceIsPresent;
 
 	Boolean headState;
 
-	void Awake()
+	void Start()
 	{
 
 		foreach(var go in GameObject.FindGameObjectsWithTag("VrOnly"))
@@ -41,6 +41,11 @@ public class CameraStartup : MonoBehaviour {
 			headState = MonitorCameraOnHead(!headState);
 
 	}
+
+    public void SetSceneCamera(Camera camera)
+    {
+        sceneCamera = camera;
+    }
 
 	public Boolean MonitorCameraOnHead(Boolean head)
 	{

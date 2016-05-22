@@ -30,14 +30,12 @@ public class GameMachine : MonoBehaviour
     bool isRunning = false;
 
     Coroutines.Coroutine _Main;
+    CameraStartup _cameraStartup;
+    GameObject _mousePlayer, _vrPlayer;
 
     void Awake()
     {
-
-		//if (Camera.main == null)
-		//    Camera.main = FindObjectOfType<CharacterController>().transform.GetChild(0).GetComponent<Camera>();
-		//Instance = this;
-		if(SceneManager.sceneCount == 1)
+		if (SceneManager.sceneCount == 1)
 			SceneManager.LoadScene("Testbed_vrtest", LoadSceneMode.Additive);
 
 	}
@@ -45,13 +43,23 @@ public class GameMachine : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-		//_Main = nekw Coroutines.Coroutine(Main());
+        var camstart = GameObject.Find("CameraStartup");
+        _cameraStartup = camstart.GetComponent<CameraStartup>();
+        _cameraStartup.SetSceneCamera(Camera.main);
+        camstart.SetActive(false);
+
+        _mousePlayer = GameObject.Find("MousePlayer");
+        _vrPlayer = GameObject.Find("VRPlayspace");
+        _mousePlayer.SetActive(false);
+        _vrPlayer.SetActive(false);
 	}
 
     // Update is called once per frame
     void Update()
     {
-        //_Main.Update();
+        if (_Main != null)
+            _Main.Update();
+
         if (!isRunning)
             return;
 
@@ -84,6 +92,59 @@ public class GameMachine : MonoBehaviour
         SceneManager.LoadScene("Main", LoadSceneMode.Single);
     }
 
+    public void TransitionToPlayer()
+    {
+        _Main = new Coroutines.Coroutine(RunTransition());
+    }
+
+    IEnumerable<Instruction> RunTransition()
+    {   
+        var overlayCanvas = CreditsScroller.Instance._OverlayCanvas;
+        var image = overlayCanvas.transform.GetChild(0);
+        var text = overlayCanvas.transform.GetChild(1);
+
+
+        // fade out
+        overlayCanvas.gameObject.SetActive(true);
+        text.gameObject.SetActive(false);
+        LeanTween.color(image.transform as RectTransform, Color.black, 1f);
+
+        yield return ControlFlow.Call(Wait(1f));
+
+
+        // swap
+        _mousePlayer.SetActive(true);
+        _vrPlayer.SetActive(true);
+
+        CreditsScroller.Instance.DisableCreditOverlay();
+
+        yield return null;
+        Camera.main.gameObject.SetActive(false);
+        _cameraStartup.gameObject.SetActive(true);
+
+
+        // fade in
+        LeanTween.color(image.transform as RectTransform, new Color(1f, 1f, 1f, 0f), 1f);
+
+        yield return ControlFlow.Call(Wait(1f));
+
+
+        // end
+
+        text.gameObject.SetActive(true);
+        overlayCanvas.gameObject.SetActive(false);
+    }
+
+    IEnumerable<Instruction> Wait(float duration)
+    {
+        float timer = 0f;
+
+        while (timer < duration)
+        {
+            timer += Time.unscaledDeltaTime;
+            yield return null;
+        }
+    }
 
     //IEnumerable<Instruction> Main()
     //{

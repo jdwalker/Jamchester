@@ -18,7 +18,7 @@ public class CreditsScroller : MonoBehaviour
     Text _ScrollText1, _ScrollText2, _ScrollText3;
 
     [SerializeField]
-    Canvas _OverlayCanvas;
+    public Canvas _OverlayCanvas;
 
 
     Coroutines.Coroutine _Main;
@@ -29,7 +29,6 @@ public class CreditsScroller : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("AWAAAAAKE@");
         Instance = this;
         Time.timeScale = 1.0f;
     }
@@ -93,6 +92,8 @@ public class CreditsScroller : MonoBehaviour
         yield return ControlFlow.Call(FadeIn(2));
 
         yield return ControlFlow.Call(Wait(4));
+
+        LeanTween.delayedCall(10f, GameMachine.Instance.TransitionToPlayer);
 
         yield return ControlFlow.ExecuteWhile(() => !isEnding,
             ScrollCredits());
@@ -206,6 +207,17 @@ public class CreditsScroller : MonoBehaviour
     public void EndGame()
     {
         isEnding = true;
+    }
+
+    public void DisableCreditOverlay()
+    {
+        var t = transform.GetChild(0);
+
+        foreach (Transform child in t)
+        {
+            var text = child.GetComponent<Text>();
+            text.material = null;
+        }
     }
 
     #endregion
