@@ -15,6 +15,11 @@ public class CameraStartup : MonoBehaviour {
 
 	Boolean headState;
 
+	void Awake()
+	{
+		VRDeviceIsPresent = SteamVR.instance != null;
+	}
+
 	void Start()
 	{
 
